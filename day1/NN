@@ -1,0 +1,17 @@
+SELECT * FROM activity A
+WHERE start >= NOW() AND available > 0
+  AND NOT EXISTS (
+    SELECT activityID
+    FROM register
+    WHERE studentID='xxxxxxxx'
+    AND activityID=yyy
+  )
+$coon->begin_transaction();
+try {
+    $sal = "insert into enrollments (stu_id, act_id)
+        values (?,?)";
+        $stm = $conn->prepare($sql);
+        $stm->bind_param('si',$_SESSION['user']['id'],$_GET['id']);
+        $stm->execute();
+        $sql = "update activities set seats=sets-1 where id= ($_GET['id']}";
+        
